@@ -1,21 +1,33 @@
 #!/usr/bin/env node
-import 'source-map-support/register';
 import * as cdk from 'aws-cdk-lib';
-import { AwsServerlessHttpdnsStack } from '../lib/aws-serverless-httpdns-stack';
+import 'source-map-support/register';
+import { AwsServerlessHttpdnsRegionalStack } from '../lib/aws-serverless-httpdns-regional-stack';
 
-const app = new cdk.App();
-new AwsServerlessHttpdnsStack(app, 'AwsServerlessHttpdnsStack', {
-  /* If you don't specify 'env', this stack will be environment-agnostic.
-   * Account/Region-dependent features and context lookups will not work,
-   * but a single synthesized template can be deployed anywhere. */
 
-  /* Uncomment the next line to specialize this stack for the AWS Account
-   * and Region that are implied by the current CLI configuration. */
-  // env: { account: process.env.CDK_DEFAULT_ACCOUNT, region: process.env.CDK_DEFAULT_REGION },
+const regions = ['us-east-1', 'ap-southeast-1', 'ap-northeast-1']
+for (let i = 0; i < regions.length; i++) {
+    const region = regions[i];
+    console.log('=====================' + region)
 
-  /* Uncomment the next line if you know exactly what Account and Region you
-   * want to deploy the stack to. */
-  // env: { account: '123456789012', region: 'us-east-1' },
+    const app = new cdk.App();
+    const stack = new cdk.Stack(app, 'httpdns-serverless-stack-' + region, {
+        env: { region: region },
+        // crossRegionReferences: true
+    })
 
-  /* For more information, see https://docs.aws.amazon.com/cdk/latest/guide/environments.html */
-});
+    new AwsServerlessHttpdnsRegionalStack(stack, 'ServerlessHttpdnsStack-' + region)
+}
+
+
+// const app1 = new cdk.App()
+// const stack1 = new cdk.Stack(app1, 'httpdns-serverless-stack-us-east-1', { env: { region: 'us-east-1' }, crossRegionReferences: true })
+// new AwsServerlessHttpdnsRegionalStack(stack1, 'us-east-1-httpdns')
+
+// const app2 = new cdk.App()
+// const stack2 = new cdk.Stack(app2, 'httpdns-serverless-stack-ap-southeast-1', { env: { region: 'ap-southeast-1' }, crossRegionReferences: true })
+// new AwsServerlessHttpdnsRegionalStack(stack2, 'ap-southeast-1-httpdns')
+
+
+// const app3 = new cdk.App()
+// const stack3 = new cdk.Stack(app3, 'httpdns-serverless-stack-us-east-1', { env: { region: 'ap-northeast-1' }, crossRegionReferences: true })
+// new AwsServerlessHttpdnsRegionalStack(stack3, 'ap-northeast-1-httpdns')
