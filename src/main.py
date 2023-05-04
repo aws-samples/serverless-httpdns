@@ -63,7 +63,7 @@ DRAFT_OPTION_CODE = 0x50FA
 FAMILY_IPV4 = 1
 FAMILY_IPV6 = 2
 SUPPORTED_FAMILIES = (FAMILY_IPV4, FAMILY_IPV6)
-GOOGLE_DNS = '8.8.8.8'
+DNS_RESOLVER = '1.1.1.1'
 
 
 def getDnsResult(resolverIP, recordName, recordType, clientIP, mask):
@@ -117,13 +117,13 @@ def lambda_handler(event, context):
 
     if recordType == 'CNAME':
         cnameData = getDnsResult(
-            GOOGLE_DNS, recordName, recordType, clientIP, mask)
+            DNS_RESOLVER, recordName, recordType, clientIP, mask)
         print(cnameData)
         recordData = getDnsResult(
-            GOOGLE_DNS, cnameData[0].to_text(), 'A', clientIP, mask)
+            DNS_RESOLVER, cnameData[0].to_text(), 'A', clientIP, mask)
     else:
         recordData = getDnsResult(
-            GOOGLE_DNS, recordName, recordType, clientIP, mask)
+            DNS_RESOLVER, recordName, recordType, clientIP, mask)
 
     return {
         "statusCode": 200,
