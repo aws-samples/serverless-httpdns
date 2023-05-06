@@ -15,7 +15,6 @@ export class AwsServerlessHttpdnsStack extends cdk.Stack {
         const listener = accelerator.addListener('Listener', { portRanges: [{ fromPort: 80 }] });
         listener.addEndpointGroup('endpoint-1', { endpoints: [new ApplicationLoadBalancerEndpoint(regionalStack.alb)] })
 
-        new cdk.CfnOutput(this, 'GA DNS name', { value: accelerator.dnsName })
-        new cdk.CfnOutput(this, 'GA ARN', { value: accelerator.acceleratorArn })
+        new cdk.CfnOutput(this, 'GLOBAL_ACCELERATOR_ARN', { value: accelerator.acceleratorArn })
     }
 }
