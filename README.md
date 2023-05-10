@@ -18,20 +18,14 @@ $ npm install -g aws-cdk
 $ npm install  
 $ cdk bootstrap —region ${AWS_REGION_CODE} aws://${YOUR_ACCOUNT_ID}/${AWS_REGION_CODE}
 ```
-<<<<<<< HEAD
 
-=======
->>>>>>> 00729d5 (update readme)
 ### Deploy
 Run commands as below:
 ```
 $ cdk synth
 $ cdk deploy --all
 ```
-<<<<<<< HEAD
 
-=======
->>>>>>> 00729d5 (update readme)
 ### Verify
 ```
 curl -XPOST http://${GA_STATIC_IP_ADDRESS} \
@@ -40,19 +34,13 @@ curl -XPOST http://${GA_STATIC_IP_ADDRESS} \
 
 "d3ag4hukkh62yn.cloudfront.net. 60 IN A 143.204.81.223"%
 ```
-<<<<<<< HEAD
 
-=======
->>>>>>> 00729d5 (update readme)
 ### Clean
 Run commands as below:
 ```
 $ cdk destroy
 ```
-<<<<<<< HEAD
 
-=======
->>>>>>> 00729d5 (update readme)
 ### Takeaway
 HTTPDNS can be used as a backup for normal UDP DNS resolution failure in client/APP, ensuring correct resolution results in the event of LocalDNS hijacking, and improving the availability of the client system. Deploying HTTPDNS based on Lambda takes advantage of Lambda's features to achieve high availability while reducing deployment complexity. In addition, Serverless is billed on a usage basis, which means no cost is incurred if no queries are made, and multiple-region deployment of Lambda can provide near-zero-cost HA disaster recovery.
 
@@ -65,7 +53,3 @@ See [CONTRIBUTING](CONTRIBUTING.md#security-issue-notifications) for more inform
 ## License
 
 This library is licensed under the MIT-0 License. See the LICENSE file.
-<<<<<<< HEAD
-
-=======
->>>>>>> 00729d5 (update readme)
