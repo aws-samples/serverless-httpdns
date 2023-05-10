@@ -1,4 +1,4 @@
-##  How to build a httpdns resolver on aws
+##  build a serverless httpdns resolver on aws
 
 This solution is built on a Serverless architecture, using AGA+ALB+Lambda to implement an httpDNS system. The fully Serverless architecture eliminates the need for operations and maintenance costs. Lambda is a managed service that supports multi-Availability Zone deployment and comes with built-in high availability features. The solution can be quickly deployed with AWS CDK.
 
