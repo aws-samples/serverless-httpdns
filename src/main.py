@@ -63,7 +63,7 @@ DRAFT_OPTION_CODE = 0x50FA
 FAMILY_IPV4 = 1
 FAMILY_IPV6 = 2
 SUPPORTED_FAMILIES = (FAMILY_IPV4, FAMILY_IPV6)
-DNS_RESOLVER = '1.1.1.1'
+DNS_RESOLVER = '8.8.8.8'
 
 
 def getDnsResult(resolverIP, recordName, recordType, clientIP, mask):
