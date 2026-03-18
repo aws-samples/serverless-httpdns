@@ -63,41 +63,25 @@ DRAFT_OPTION_CODE = 0x50FA
 FAMILY_IPV4 = 1
 FAMILY_IPV6 = 2
 SUPPORTED_FAMILIES = (FAMILY_IPV4, FAMILY_IPV6)
-DNS_RESOLVER = '1.1.1.1'
+DNS_RESOLVER = '8.8.8.8'
 
 
 def getDnsResult(resolverIP, recordName, recordType, clientIP, mask):
     addr = socket.gethostbyname(resolverIP)
     # mask = 24
     option_code = ASSIGNED_OPTION_CODE
-    print("Testing for edns-clientsubnet using option code", hex(option_code))
-    # cso = ClientSubnetOption(clientIP, mask, option_code)
-    # print("+++++++++++++++++++++++cso:")
-    # print(cso)
+    # print("Testing for edns-clientsubnet using option code", hex(option_code))
+
     message = dns.message.make_query(recordName, recordType, options=[
                                      dns.edns.ECSOption(clientIP, mask)])
-    # options=[dns.edns.ECSOption(clientIP, 24)]
-    # message.use_edns(options=options)
-    # message.use_edns(options=[cso])
-    # message.flags = message.flags | dns.flags.RD
 
-    print("+++++++++++++++++++++++message:")
-    print(message)
-    print("***********************addr")
-    print(addr)
 
     r = dns.query.udp(message, addr, timeout=10)
-
-    print("=======================query result")
-    print(r)
 
     error = False
     found = False
     recordData = ""
     for options in r.options:
-        print("=======================options")
-        print(options)
-
         for rdata in r.answer:
             recordData = rdata
 
@@ -105,15 +89,12 @@ def getDnsResult(resolverIP, recordName, recordType, clientIP, mask):
 
 
 def lambda_handler(event, context):
-    print(json.dumps(event))
     body = json.loads(event['body'])
     recordName = body['recordName']
     recordType = body['recordType']
     clientIP = event['headers']['x-forwarded-for']
 
     mask = calculateMask(clientIP)
-
-    print(mask)
 
     if recordType == 'CNAME':
         cnameData = getDnsResult(
